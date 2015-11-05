@@ -19,7 +19,7 @@ def checkIP(ip):
                 resp = requests.post('http://%s:%d/%s' % (ip, port, service),
                         data={"mcmdf":"inapp_", "callback":None},
                         headers={"remote-addr":"127.0.0.1", "referer": "http://www.baidu.com"},
-                        timeout=2)
+                        timeout=0.5)
 
                 if resp.status_code== 200:
                 #if "error" in resp.text:
