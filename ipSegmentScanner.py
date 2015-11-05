@@ -8,6 +8,7 @@ from wormHolePoc import  checkIP
 from settings import THREAD_NUMBER
 from settings import logger
 
+from json import dumps
 
 
 def getAllIp(ip):
@@ -20,7 +21,7 @@ def singleIpScanner(ip):
     logger.info("Start to scan %s" % ip)
     ret = checkIP(ip)
     if ret:
-        logger.warn("Found wormhole vuln in %s with Vuln message: %s" % (ip, ret))
+        logger.warn("Found wormhole vuln in %s : %s" % (ip, dumps(ret)))
 
 
 
