@@ -1,20 +1,24 @@
 #!/usr/bin/env python
+# coding=utf-8
 
 import requests
-from settings import target_ports
+#from settings import target_ports
+from settings import target
 import logging
 from settings import logger
-from settings import target_infos
+#from settings import target_infos
 from optparse import OptionParser
 import json
 
 
 def checkIP(ip):
     result = {} 
-    for port in  target_ports:
-        for service in target_infos:
-            if service in result:
-                continue 
+#    for port in  target_ports:
+#        for service in target_infos:
+    for service in target:
+        if service in result:
+            break 
+        for port in target[service]:
             try:
                 resp = requests.post('http://%s:%d/%s' % (ip, port, service),
                         data={"mcmdf":"inapp_", "callback":None},
