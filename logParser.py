@@ -8,7 +8,7 @@ import time
 
 writer =csv.writer(open("wormhole_log_%s.csv" % time.strftime("%Y-%m-%d",time.localtime(time.time())), "wb"))
 
-writer.writerow(["ip","cuid", "citycode", "latitude", "longtitude", "accuracy"])
+writer.writerow(["ip","cuid","cuid_port" ,"citycode", "latitude", "longtitude", "accuracy", "location_port"])
 
 def tryGet(d, k):
     if not d :return ""
@@ -25,7 +25,7 @@ for line in sys.stdin:
 
     tryGetl = partial(tryGet, location) 
     tryGet2 = partial(tryGet, tryGetl(u"coords"))
-    writer.writerow( [ip, tryGet(cuid, 'cuid'), tryGetl(u'citycode'), tryGet2(u"latitude"), tryGet2(u"longitude"), tryGet2(u"accuracy")])
+    writer.writerow( [ip, tryGet(cuid, 'cuid'), tryGet(cuid,"port"), tryGetl(u'citycode'), tryGet2(u"latitude"), tryGet2(u"longitude"), tryGet2(u"accuracy"), tryGetl("port")])
 
         
 
