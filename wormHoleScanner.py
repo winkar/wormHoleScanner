@@ -17,8 +17,8 @@ if __name__ == "__main__":
                         help="get more verbose output")
     parser.add_option("-o", "--output", dest="output",
                         help="output file")
-    parser.add_option("-t", "--threads", dest="threads",
-                        help="threads number used for scan")
+#    parser.add_option("-t", "--threads", dest="threads",
+#                        help="threads number used for scan")
     (opt, args) = parser.parse_args()
 
     if not opt.filename and not opt.ip:
@@ -41,15 +41,9 @@ if __name__ == "__main__":
                 if line.lstrip(" ").startswith("#"):
                     continue
 
-                if opt.threads:
-                    ipSegmentScan(line, opt.threads)
-                else:
-                    ipSegmentScan(line)
+                ipSegmentScan(line)
     if opt.ip:
-        if opt.threads:
-            ipSegmentScan(opt.ip, opt.threads)
-        else:
-            ipSegmentScan(opt.ip)
+        ipSegmentScan(opt.ip)
 
 
 

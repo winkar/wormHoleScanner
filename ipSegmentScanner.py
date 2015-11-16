@@ -13,13 +13,14 @@ from json import dumps
 
 
 def getAllIp(ip):
+    logger.info("%s have %d ip in total" % (ip.strip(), len(list(IP(ip, make_net=True)))))
     for ip in IP(ip, make_net=True):
         yield str(ip)
 
 
 
 def singleIpScanner(ip):
-    logger.info("Start to scan %s" % ip)
+    logger.info("Start to scan %s" % ip.strip())
     ret = checkIP(ip)
     if ret:
         logger.warn("Found wormhole vuln in %s : %s" % (ip, dumps(ret)))
@@ -27,14 +28,11 @@ def singleIpScanner(ip):
 
 
 def scan(ip):
-    try:
-        pool = ScannerPool.getPool()
-        logger.info("Scanner to %s started" % ip)
-        for _ in pool.imap_unordered(singleIpScanner, getAllIp(ip)):pass
-        logger.info("Scan to %s done." % ip)
-    except Exception,e:
-        print e
-        import traceback; traceback.print_exc()
+    pool = ScannerPool()
+    logger.info("Scanner to %s started" % ip.strip())
+    for _ in pool.map(singleIpScanner, getAllIp(ip)):pass
+    logger.info("Scan to %s done." % ip)
+
 
 if __name__=="__main__":
     try:
