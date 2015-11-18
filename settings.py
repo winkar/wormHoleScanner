@@ -1,20 +1,22 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 # coding=utf-8
 
 #----------------logger---------------------
 import logging
+from exp.pocFor360 import pocFor360
+#import tempfile
 
 logger = logging.getLogger("wormHoleScanner")
 
 logger.setLevel(logging.WARN)
 
 
-fh = logging.FileHandler('/tmp/wormhole.log')
+#fh = logging.FileHandler('/tmp/wormhole.log')
 ch = logging.StreamHandler()
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')  
-fh.setFormatter(formatter)  
-ch.setFormatter(formatter)  
-logger.addHandler(fh)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+#logger.addHandler(fh)
 logger.addHandler(ch)
 #----------------logger---------------------
 
@@ -35,7 +37,11 @@ logger.addHandler(ch)
 #---------------Target------------------------
 target = {
         "geolocation" : [6259, 40310, 6677, ],
-        "getcuid" : [6259, 40310, ]
+        "getcuid" : [6259, 40310, ],
+        "360_POC" : {
+                        'port' : 38517,
+                        'exp' : pocFor360
+                    }
         }
 
 #---------------Target------------------------
@@ -46,6 +52,3 @@ target = {
 THREAD_NUMBER = 50
 
 #----------------Thread------------------------
-
-
-

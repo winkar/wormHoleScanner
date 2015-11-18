@@ -12,12 +12,24 @@ import json
 
 
 def checkIP(ip):
-    result = {} 
+    result = {}
 #    for port in  target_ports:
 #        for service in target_infos:
     for service in target:
         if service in result:
-            break 
+            break
+
+        if type(target[service]) is dict:
+            #logger.info(service)
+            retval = target[service]['exp'](ip)
+            # if retval is None
+            # means no result gotten
+            # if empty {} means empty result but port is open
+            if retval is None: continue
+            result[service] = retval
+            result[service]['port'] = target[service]['port']
+            continue
+
         for port in target[service]:
             try:
                 resp = requests.post('http://%s:%d/%s' % (ip, port, service),
@@ -25,7 +37,7 @@ def checkIP(ip):
                         headers={"remote-addr":"127.0.0.1", "referer": "http://www.baidu.com"},
                         timeout=0.5)
 
-                if resp.status_code== 200:
+                if resp.status_code==200 or resp.status_code==403 or resp.status_code==500:
                 #if "error" in resp.text:
                     #logger.warn("%d"%resp.status_code)
                     logger.debug("On port [%d] %s" %( port, resp.text))
@@ -37,9 +49,9 @@ def checkIP(ip):
             #except requests.exceptions.ConnectionError:
             #except requests.exceptions.ReadTimeout:
             except requests.RequestException:
-                continue 
+                continue
     return result
-        
+
 
 if __name__=="__main__":
     parser = OptionParser()
@@ -60,5 +72,3 @@ if __name__=="__main__":
     res= checkIP(opt.ip)
     from pprint import pprint
     pprint(res)
-
-
