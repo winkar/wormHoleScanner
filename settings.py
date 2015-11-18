@@ -4,6 +4,7 @@
 #----------------logger---------------------
 import logging
 from exp.pocFor360 import pocFor360
+from exp.pocForGaode import pocForGaode
 #import tempfile
 
 logger = logging.getLogger("wormHoleScanner")
@@ -39,9 +40,13 @@ target = {
         "geolocation" : [6259, 40310, 6677, ],
         "getcuid" : [6259, 40310, ],
         "360_POC" : {
-                        'port' : 38517,
-                        'exp' : pocFor360
-                    }
+                       'port' : 38517,
+                       'exp' : pocFor360
+                   },
+        # "Gaode_POC" : {
+        #                 'port': 6677,
+        #                 'exp' : pocForGaode
+        #             }
         }
 
 #---------------Target------------------------
