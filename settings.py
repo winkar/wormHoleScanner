@@ -5,6 +5,7 @@
 import logging
 from exp.pocFor360 import pocFor360
 from exp.pocForGaode import pocForGaode
+from exp.portScan import portScan
 #import tempfile
 
 logger = logging.getLogger("wormHoleScanner")
@@ -43,6 +44,10 @@ target = {
                        'port' : 38517,
                        'exp' : pocFor360
                    },
+        # "TcpScan" : {
+        #     'port':[7777, 6587, 55279],
+        #     'exp' : portScan
+        # }
         # "Gaode_POC" : {
         #                 'port': 6677,
         #                 'exp' : pocForGaode

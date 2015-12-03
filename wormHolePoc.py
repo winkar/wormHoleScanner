@@ -19,6 +19,9 @@ def checkIP(ip):
         if service in result:
             break
 
+        # if service=="TcpScan":
+        #     retval = target[service]['exp']
+
         if type(target[service]) is dict:
             #logger.info(service)
             retval = target[service]['exp'](ip)
