@@ -2,14 +2,15 @@
 
 import requests
 #from settings import logger
-import settings
+#import settings
 
-def pocFor360(ip):
+protocol = ["http"]
+port = [38517]
+
+def verify(domain):
     try:
-        #settings.logger.info("test")
-        target_url = "http://%s:38517/getClientInfo"  % ip
+        target_url = "http://%s:38517/getClientInfo"  % domain
         resp = requests.post(target_url, data ={"callback":"xxxx"},timeout=0.5)
-        #settings.logger.info(resp)
         if resp.status_code==200 or resp.status_code==403 or resp.status_code==500:
             return {"result":resp.text}
         else:

@@ -8,10 +8,13 @@ import urllib2
 import socket
 import httplib
 
-def pocForGaode(ip):
+service = ["http"]
+port = [6677]
+
+def verify(domain):
     try:
         #settings.logger.info("test")
-        target_url = "http://%s:6677/geolocation?"  % ip
+        target_url = "http://%s:6677/geolocation?"  % domain
     #    resp = requests.get(target_url, headers={"referer":"http://114.247.50.32"},timeout=0.5)
         req = urllib2.Request(target_url)
         req.add_header("referer", "http://114.247.50.32")

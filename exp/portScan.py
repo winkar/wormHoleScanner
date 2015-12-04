@@ -1,4 +1,7 @@
 #!/usr/bin/env python
 
-def portScan(ip, port):
+
+port = []
+
+def verify(ip, port):
     pass
