@@ -12,7 +12,7 @@ def verify(domain):
         target_url = "http://%s:38517/getClientInfo"  % domain
         resp = requests.post(target_url, data ={"callback":"xxxx"},timeout=0.5)
         if resp.status_code==200 or resp.status_code==403 or resp.status_code==500:
-            return {"result":resp.text}
+            return resp.text
         else:
             return None
     except requests.RequestException,e:

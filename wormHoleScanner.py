@@ -12,28 +12,42 @@ import pkgutil
 from collections import defaultdict
 from json import dumps
 
+
 def singleIpScanner(ip):
     logger.info("Start to scan %s" % ip)
 
     result = []
 
-    for _, modname, _ in pkgutil.iter_modules(exp.__path__)
-        poc_module = __import__(modname)
+    def addIntoResultIfNotNull(val):
+        #nonlocal result
+        if val:
+            logger.warn("Found wormhole vuln in %s : %s" % (ip, val))
+            result.append(val)
+
+    for _, modname, _ in pkgutil.iter_modules(exp.__path__):
+        poc_module = __import__("exp." %(modname))
         port = poc_module.port
         if len(port)==1:
             ret = poc_module.verify(ip)
-            if ret:
-                logger.warn("Found wormhole vuln in %s : %s" % (ip, dumps(ret)))
-                result.append((port, dumps(ret)))
+            addIntoResultIfNotNull(ret)
+
         else:
             for p in port:
-                res = poc_module.verify(ip, p)
+                try:
+                    ret = poc_module.verify(ip, p)
+                    addIntoResultIfNotNull(ret)
+                except AttributeError:
+                    logger.debug("Cannot found verify method in %s module"
+                                    % modname)
+                    break
+
+    return result
 
 def scan(target, threads):
     logger.info("Going to scan %s IPs" % len(target))
     pool = Pool(threads)
     _ = list(pool.imap_unordered(singleIpScanner, target))
-    logger.info("Scanning Done.\n%d Possible")
+    logger.info("Scanning Done.")
 
 
 if __name__ == "__main__":
@@ -44,7 +58,7 @@ if __name__ == "__main__":
                         help="target IPs to scan(will ignore -i option)")
     parser.add_option("-v","--verbose", action="store_true", dest="verbose",
                         help="get more verbose output")
-    parser.add_option("-V","--Verbose", action="store_true", dest="verbose",
+    parser.add_option("-V","--Verbose", action="store_true", dest="Verbose",
                         help="get more verbose output")
     parser.add_option("-o", "--output", dest="output",
                         help="output file")
@@ -61,7 +75,6 @@ if __name__ == "__main__":
     if opt.Verbose:
         logger.setLevel(logging.DEBUG)
 
-    logger.name = "wormHoleScanner"
     if opt.output:
         fh = logging.FileHandler(opt.output)
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')

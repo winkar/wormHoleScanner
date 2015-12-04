@@ -11,7 +11,7 @@ import httplib
 service = ["http"]
 port = [6677]
 
-def verify(domain):
+def __verify(domain):
     try:
         #settings.logger.info("test")
         target_url = "http://%s:6677/geolocation?"  % domain

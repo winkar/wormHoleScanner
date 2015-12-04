@@ -3,5 +3,5 @@
 
 port = []
 
-def verify(ip, port):
-    pass
+def __verify(ip, port):
+    return None
