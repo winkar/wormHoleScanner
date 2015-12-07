@@ -16,4 +16,20 @@ def IP_Generator(ip_str_set):
     return list(map(str, itertools.chain.from_iterable(IPy.IP(ip_str, make_net=True)
                             for ip_str in ip_str_set)))
 
-global_options = None
+
+def AttributeDict:
+
+    def __init__(self):
+        self.attr_dict = {}
+
+    def __getattr__(self, key):
+        if key in self.attr_dict:
+            return self.attr_dict
+        else:
+            return None
+
+    def __setattr__(self, key, value):
+        self.attr_dict[key] = value
+
+
+global_options = AttributeDict()

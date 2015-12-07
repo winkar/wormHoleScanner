@@ -89,7 +89,7 @@ if __name__ == "__main__":
         parser.print_help()
         exit(1)
 
-    global_options = opt
+    global_options.poc_patter= opt.poc_pattern
 
     if opt.verbose:
         logger.setLevel(logging.INFO)

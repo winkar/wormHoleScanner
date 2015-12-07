@@ -3,3 +3,5 @@ ips
 log
 testip
 *.log
+__pycache__
+*.csv
