@@ -17,14 +17,13 @@ def IP_Generator(ip_str_set):
                             for ip_str in ip_str_set)))
 
 
-def AttributeDict:
-
+class AttributeDict:
+    attr_dict = {}
     def __init__(self):
-        self.attr_dict = {}
-
+        pass
     def __getattr__(self, key):
         if key in self.attr_dict:
-            return self.attr_dict
+            return self.attr_dict[key]
         else:
             return None
 

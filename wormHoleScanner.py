@@ -26,9 +26,13 @@ def singleIpScanner(ip):
             result.append(val)
 
     for _, modname, _ in pkgutil.iter_modules(exp.__path__):
-
-        if not fnmatch(modname, global_options.poc_pattern):
-            continue
+        try:
+            if not fnmatch(modname, global_options.poc_pattern):
+                continue
+        except Exception,e:
+            logger.error(e)
+            logger.error(str(global_options.poc_pattern))
+            raise e
 
         try:
             poc_module = __import__("exp.%s" %(modname), fromlist=["port", "verify", "protocol"])
@@ -89,7 +93,8 @@ if __name__ == "__main__":
         parser.print_help()
         exit(1)
 
-    global_options.poc_patter= opt.poc_pattern
+    global_options.poc_pattern = opt.poc_pattern
+    #global_options = opt
 
     if opt.verbose:
         logger.setLevel(logging.INFO)

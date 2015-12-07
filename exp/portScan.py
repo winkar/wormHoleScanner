@@ -16,7 +16,7 @@ def verify(ip, port):
         s.close()
         # if ip=="10.221.139.247" and port==7777:
         #      logger.warn("-----------------10.221.139.247:7777 is open")
-        return "%s:%d is open." % (ip, port)
+        return "open"
     except Exception,e:
         # logger.error(e)
         # if ip=="10.221.139.247" and port==7777:
