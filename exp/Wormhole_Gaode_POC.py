@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 import requests
-#from settings import logger
-import settings
 import urllib
 import urllib2
 import socket
@@ -37,8 +35,3 @@ def __verify(domain):
 #    except urllib2.URLError, e:
 #        settings.logger.debug(e)
 #        return None
-
-
-if __name__=="__main__":
-    import sys
-    print pocForGaode(sys.argv[1])

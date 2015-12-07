@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-
+import requests
 protocol = ["http"]
-port = [6259, 40310, 6677, ]
+port = [7777, 6259, 40310, 6677, ]
 
 
 def verify(ip, port):
@@ -20,4 +20,4 @@ def verify(ip, port):
             # result[service_name]['port'] = port
 
     except requests.RequestException:
-        continue
+        return None
